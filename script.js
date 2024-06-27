@@ -1,4 +1,4 @@
-const handles = ["RohanJha23", "namananand2003", "smfaizalam786"]; // Replace with actual handles
+const handles = ["RohanJha23", "namananand2003", "smfaizalam786","ashish_1203","yashsharda","shivi1104"]; // Replace with actual handles
 const baseUrl = "https://codeforces.com/api/user.info?handles=";
 const handlesString = handles.join(";"); // Join handles with a semicolon
 
@@ -28,11 +28,40 @@ const displaySortedData = (sortedData) => {
   userListElement.innerHTML = ''; // Clear previous data
 
   sortedData.forEach(user => {
-    const listItem = document.createElement('li');
-    const profileLink = `<a href="https://codeforces.com/profile/${user.handle}" target="_blank">${user.handle}</a>`;
-    listItem.innerHTML = `${profileLink}: ${user.rating || 'Unrated'}`; // Display handle and rating with link
-    userListElement.appendChild(listItem);
-  });
+    const row = document.createElement('tr');
+    let userRank = user.rank;
+
+// Function to get CSS class based on rank
+const getRankClass = (rank) => {
+    if (!rank) return ''; // Handle cases where rank is not available
+
+    rank = rank.toLowerCase(); // Convert rank to lowercase for easier comparison
+
+    if (rank.includes('newbie')) {
+        return 'rank-newbie'; // Example class for "Newbie"
+    } else if (rank.includes('pupil')) {
+        return 'rank-pupil'; // Example class for "Pupil"
+    } else if (rank.includes('specialist')) {
+        return 'rank-specialist'; // Example class for "Specialist"
+    } else {
+        return ''; // Default class or none
+    }
+};
+const rankClass = getRankClass(userRank);
+
+// Capitalize the first letter of rank
+    userRank = userRank.charAt(0).toUpperCase() + userRank.slice(1);
+    const userName = `<a href="https://codeforces.com/profile/${user.handle} target="_blank" style="color:black;">${user.handle}</a>`;
+    // userRank[0].toUpperCase();
+    row.innerHTML = `
+        <td>${userName}</td>
+        <td>${user.rating || 'Unrated'}</td>
+        <td>${user.maxRating || 'N/A'}</td>
+        <td>${userRank || 'N/A'}</td>
+    `;
+    userListElement.appendChild(row);
+    row.className = rankClass;
+});
 };
 
 fetchDataAndSort();
