@@ -51,7 +51,7 @@ const rankClass = getRankClass(userRank);
 
 // Capitalize the first letter of rank
     userRank = userRank.charAt(0).toUpperCase() + userRank.slice(1);
-    const userName = `<a href="https://codeforces.com/profile/${user.handle} target="_blank" style="color:black;">${user.handle}</a>`;
+    const userName = `<a href="https://codeforces.com/profile/${user.handle}" target="_blank" style="color:black;"">${user.handle}</a>`;
     // userRank[0].toUpperCase();
     row.innerHTML = `
         <td>${userName}</td>
